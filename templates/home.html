@@ -4,5 +4,19 @@
 
 {% block content %}
     <h1>Boggle game</h1>
+
+    <table>
+        {% for board_y in board %}
+        <tr>
+            {% for board_x in board_y %}
+            <td>{{ board_x }}</td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </table>
     
+    <form action="/submit_guess" id="submit_guess_form" method="post">
+        <input type="text" name="submit_guess" id="submit_guess">
+        <button id="submit_guess_button">Submit!</button>
+    </form>
 {% endblock %}
