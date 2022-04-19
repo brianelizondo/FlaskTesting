@@ -1,0 +1,62 @@
+body{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    padding: 30px 50px;
+    background-color: black;
+}
+h1{
+    color: aquamarine;
+    text-transform: uppercase;
+}
+#board_game{
+    font-size: 22px;
+    color: white;
+    width: 260px;
+    padding-bottom: 15px;
+}
+#board_game td{
+    font-weight: bold;
+    padding: 10px 0px;
+    text-align: center;
+    background-color: grey;
+}
+p{
+    font-size: 13px;
+    color: white;
+}
+p span{
+    font-weight: bold;
+}
+
+input{
+    font-weight: 14px;
+    padding: 7px 10px;
+    width: 150px;
+    border: none;
+    border-radius: 5px;
+}
+button{
+    background-color: aquamarine;
+    color: black;
+    font-size: 14px;
+    font-weight: bold;
+    width: 75px;
+    height: 30px;
+    border: none;
+    border-radius: 5px;
+}
+
+#word_result{
+    font-size: 11px;
+    width: 230px;
+    padding: 10px 10px;
+    text-align: center;
+    transition: ease-in;
+}
+.word_result_ok{
+    color: aquamarine;
+    border: 1px aquamarine solid;
+}
+.word_result_error{
+    color: red;
+    border: 1px red solid;
+}

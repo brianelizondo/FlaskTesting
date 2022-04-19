@@ -49,17 +49,27 @@ $(document).ready(function() {
         bodyFormData.append('user_word', user_word);
         // Get the responsefrom the server
         const response = await submit_guess(bodyFormData);
-        // Show the check result to the user
-        let $result_msg = $("p#word_result");
-        $result_msg.text("The word is " + response.result.toUpperCase().replace('-', ' '));
-
+        
         // Get the current score and update to the new score
+        let $result_msg = $("p#word_result");
+
         let current_score = get_current_score();
         let new_score = 0;
         if(response.result == "ok"){
             new_score = current_score + user_word.length;
             $score_element.text(new_score);
+
+            $result_msg.addClass('word_result_ok');
+        }else{
+            $result_msg.addClass('word_result_error');
         }
+
+        // Show the check result to the user
+        $result_msg.text("The word is " + response.result.toUpperCase().replace('-', ' '));
+        setTimeout(function(){
+            $result_msg.removeAttr('class');
+            $result_msg.text('');
+        }, 1000);
 
         // Start the game timer
         start_timer();
