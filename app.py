@@ -6,6 +6,7 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = "abcd1234"
 
 boggle_game = Boggle()
+current_words = []
 
 @app.route('/')
 def home_page():
@@ -20,7 +21,14 @@ def submit_guess():
     and respond with JSON using the jsonify function
     """
     word = request.form['user_word']
-    word_check = {"result": boggle_game.check_valid_word(session['boggle_board'], word)}
+
+    if word in current_words:
+        result_check = "previously-sent"
+    else:
+        result_check = boggle_game.check_valid_word(session['boggle_board'], word)
+        current_words.append(word)
+
+    word_check = {"result": result_check}
     return jsonify(word_check)
 
 @app.route('/statistics')
