@@ -1,4 +1,15 @@
 $(document).ready(function() {
+    let game_started = false;
+    function start_timer(){
+        if(!game_started){
+            game_started = true;
+            setTimeout(function(){
+                $("#submit_guess").prop('disabled', true);
+                $("#submit_guess_button").prop('disabled', true);
+            }, 60000);
+        }
+    }
+    
     async function submit_guess(bodyFormData){
         // Send the form data with axios post request to check the guess word
         const resp = await axios({
@@ -31,5 +42,8 @@ $(document).ready(function() {
             new_score = current_score + user_word.length;
             $score_element.text(new_score);
         }
+
+        // Start the game timer
+        start_timer();
     });
 });
