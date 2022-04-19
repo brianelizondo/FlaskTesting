@@ -10,11 +10,8 @@ boggle_game = Boggle()
 @app.route('/')
 def home_page():
     """Return a page that shows Boggle game board"""
-
     session['boggle_board'] = boggle_game.make_board()
-    
-    return render_template("home.html", board=session['boggle_board'])
-
+    return render_template("home.html", board=session['boggle_board'], high_sc=session['high_score'] )
 
 @app.route('/submit_guess', methods=["POST"])
 def submit_guess():
@@ -25,3 +22,19 @@ def submit_guess():
     word = request.form['user_word']
     word_check = {"result": boggle_game.check_valid_word(session['boggle_board'], word)}
     return jsonify(word_check)
+
+@app.route('/statistics')
+def save_statistics():
+    """Keep track of how many times the user has played as well as their highest score so far"""
+    if session.get('game_played') is not None:
+        session['game_played'] = session['game_played'] + 1
+    else:
+        session['game_played'] = 1
+    
+    new_high_score = "false"
+    current_score = int(request.args["score"])
+    if current_score > session['high_score']:
+        new_high_score = "true"
+        session['high_score'] = current_score
+    
+    return new_high_score
